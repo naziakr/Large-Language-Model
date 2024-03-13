@@ -1,0 +1,16 @@
+import torch
+pip install fairseq
+from fairseq.models.transformer_lm import TransformerLanguageModel
+pip install transformers
+pip install sacremoses
+from transformers import pipeline, set_seed
+from transformers import BioGptTokenizer, BioGptForCausalLM
+model = BioGptForCausalLM.from_pretrained("microsoft/biogpt")
+tokenizer = BioGptTokenizer.from_pretrained("microsoft/biogpt")
+generator = pipeline('text-generation', model=model, tokenizer=tokenizer)
+set_seed(42)
+input_text = "   " {Input any text you require an answer for - a health related question}
+
+generator(input_text, max_length=2000, num_return_sequences=1, do_sample=True) {This will give only one answer}
+
+generator(input_text, max_length=200, num_return_sequences=15, do_sample=True) {This will generate several related answers}
